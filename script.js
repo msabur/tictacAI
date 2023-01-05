@@ -48,7 +48,7 @@ function minimax(board, player) {
     let winnerValue = { [HUMAN]: -1, [COMPUTER]: 1, draw: 0 };
 
     // minimax algorithm
-    // will return score
+    // will return evaluation of board
 
     let winner = checkWinner(board);
     if (winner) {
@@ -103,7 +103,6 @@ function computerMove(board) {
         }
     }
 
-    console.log(bestMove);
     return bestMove;
 }
 
@@ -172,4 +171,14 @@ function newGame() {
         document.getElementById("cell" + i).innerHTML = "";
     }
     document.getElementById("outcome").innerHTML = "";
+}
+
+function reset() {
+    newGame();
+    state.score = {
+        [HUMAN]: 0,
+        [COMPUTER]: 0
+    };
+    document.getElementById("score-you").innerHTML = state.score.X;
+    document.getElementById("score-computer").innerHTML = state.score.O;
 }
