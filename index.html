@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>Tic Tac Toe</h1>
+        <p>You play as X, and the computer plays as O</p>
+        <!-- score (you | computer) -->
+        <div class="score">
+            <div class="score-you">You: <span id="score-you">0</span></div>
+            <div class="score-computer">Computer: <span id="score-computer">0</span></div>
+        </div>
+        <div class="outcome">
+            <div class="outcome">Outcome: [<span id="outcome"></span>]</div>
+        </div>
+        <!-- reset button -->
+        <button class="newGame" onclick="newGame()">New Game</button>
+        <div class="board">
+            <div class="cell" id="cell0" onclick="clicked(this.id)"></div>
+            <div class="cell" id="cell1" onclick="clicked(this.id)"></div>
+            <div class="cell" id="cell2" onclick="clicked(this.id)"></div>
+            <div class="cell" id="cell3" onclick="clicked(this.id)"></div>
+            <div class="cell" id="cell4" onclick="clicked(this.id)"></div>
+            <div class="cell" id="cell5" onclick="clicked(this.id)"></div>
+            <div class="cell" id="cell6" onclick="clicked(this.id)"></div>
+            <div class="cell" id="cell7" onclick="clicked(this.id)"></div>
+            <div class="cell" id="cell8" onclick="clicked(this.id)"></div>
+        </div>
+    </div>
+</body>
+
+<script src="script.js"></script>
+</html>
