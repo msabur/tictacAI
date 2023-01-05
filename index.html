@@ -19,8 +19,10 @@
         <div class="outcome">
             <div class="outcome">Outcome: [<span id="outcome"></span>]</div>
         </div>
-        <!-- reset button -->
-        <button class="newGame" onclick="newGame()">New Game</button>
+        <div class="buttonContainer">
+            <button class="newGame" onclick="newGame()">New Game</button>
+            <button class="reset" onclick="reset()">Reset</button>
+        </div>
         <div class="board">
             <div class="cell" id="cell0" onclick="clicked(this.id)"></div>
             <div class="cell" id="cell1" onclick="clicked(this.id)"></div>
@@ -36,4 +38,5 @@
 </body>
 
 <script src="script.js"></script>
+
 </html>

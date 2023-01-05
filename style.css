@@ -28,6 +28,12 @@
     width: 300px;
 }
 
+.buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+}
+
 .newGame {
     /* nice looking button */
     background-color: #05b623;
@@ -45,7 +51,28 @@
 
 /* newGame's hover */
 .newGame:hover {
-    background-color: #03851f;
+    background-color: #036e1a;
+    color: white;
+}
+
+.reset {
+    /* nice looking button */
+    background-color: #ff0000;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+/* reset's hover */
+.reset:hover {
+    background-color: #b30000;
     color: white;
 }
 
