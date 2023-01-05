@@ -8,17 +8,17 @@ let state = {
         ["", "", ""],
         ["", "", ""]
     ],
-    turn: "X",
+    turn: HUMAN,
     score: {
-        X: 0,
-        O: 0
+        [HUMAN]: 0,
+        [COMPUTER]: 0
     },
     winner: null
 };
 
 let winOutcomes = {
-    X: "You won",
-    O: "Computer won",
+    [HUMAN]: "You won",
+    [COMPUTER]: "Computer won",
     draw: "Draw"
 }
 
@@ -45,7 +45,7 @@ function clicked(cellId) {
 }
 
 function minimax(board, player) {
-    let winnerValue = { X: -1, O: 1, draw: 0 };
+    let winnerValue = { [HUMAN]: -1, [COMPUTER]: 1, draw: 0 };
 
     // minimax algorithm
     // will return score
@@ -166,7 +166,7 @@ function newGame() {
         ["", "", ""],
         ["", "", ""]
     ];
-    state.turn = "X";
+    state.turn = HUMAN;
     state.winner = null;
     for (var i = 0; i < 9; i++) {
         document.getElementById("cell" + i).innerHTML = "";
