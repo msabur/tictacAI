@@ -85,7 +85,7 @@ function minimax(board, player) {
 }
 
 function computerMove(board) {
-    let bestMove = [-1, -1];
+    let bestMoves = [];
     let bestValue = -Infinity;
 
     for (let i = 0; i < 3; i++) {
@@ -96,14 +96,16 @@ function computerMove(board) {
             board[i][j] = COMPUTER;
             let value = minimax(board, HUMAN);
             if (value > bestValue) {
-                bestMove = [i, j];
+                bestMoves = [[i, j]];
                 bestValue = value;
+            } else if (value == bestValue) {
+                bestMoves.push([i, j]);
             }
             board[i][j] = "";
         }
     }
 
-    return bestMove;
+    return bestMoves[Math.floor(Math.random() * bestMoves.length)];
 }
 
 function makeMove(row, col, player) {
