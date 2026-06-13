@@ -10,6 +10,12 @@
 
 <body>
     <div class="container">
+        <div class="theme-switch" id="themeSwitch">
+            <div class="pill-slider"></div>
+            <span class="theme-option" data-value="light" onclick="setTheme('light')">☀️</span>
+            <span class="theme-option active" data-value="auto" onclick="setTheme('auto')">Auto</span>
+            <span class="theme-option" data-value="dark" onclick="setTheme('dark')">🌙</span>
+        </div>
         <h1>Tic Tac Toe</h1>
         <p>You play as X, and the computer plays as O</p>
         <!-- score (you | computer) -->
@@ -17,14 +23,22 @@
             <div class="score-you">You: <span id="score-you">0</span></div>
             <div class="score-computer">Computer: <span id="score-computer">0</span></div>
         </div>
-        <div class="outcome">
-            <div class="outcome">Outcome: [<span id="outcome"></span>]</div>
+        <div class="difficulty-switch" id="difficultySwitch">
+            <div class="pill-slider"></div>
+            <span class="difficulty-option" data-value="easy" onclick="setDifficulty('easy')">Easy</span>
+            <span class="difficulty-option active" data-value="medium" onclick="setDifficulty('medium')">Medium</span>
+            <span class="difficulty-option" data-value="impossible" onclick="setDifficulty('impossible')">Impossible</span>
+        </div>
+        <div class="analysis-switch" id="analysisSwitch">
+            <div class="pill-slider"></div>
+            <span class="analysis-option active" data-value="off" onclick="setAnalysis('off')">Analysis: Off</span>
+            <span class="analysis-option" data-value="on" onclick="setAnalysis('on')">Analysis: On</span>
         </div>
         <div class="buttonContainer">
             <button class="newGame" onclick="newGame()">New Game</button>
             <button class="reset" onclick="reset()">Reset</button>
         </div>
-        <div class="board">
+        <div class="board" id="board">
             <div class="cell" id="cell0" onclick="clicked(this.id)"></div>
             <div class="cell" id="cell1" onclick="clicked(this.id)"></div>
             <div class="cell" id="cell2" onclick="clicked(this.id)"></div>
@@ -34,7 +48,14 @@
             <div class="cell" id="cell6" onclick="clicked(this.id)"></div>
             <div class="cell" id="cell7" onclick="clicked(this.id)"></div>
             <div class="cell" id="cell8" onclick="clicked(this.id)"></div>
+            <div class="board-overlay" id="boardOverlay">
+                <span id="boardOverlayText"></span>
+            </div>
+            <svg class="win-line" id="winLine">
+                <line x1="0" y1="0" x2="0" y2="0" />
+            </svg>
         </div>
+        <div class="analysis-info" id="analysisInfo"></div>
         <!-- footer with link to source on github -->
         <div class="footer">
             <a href="https://github.com/msabur/tictacAI" target="_blank">Source code</a>

@@ -1,6 +1,83 @@
-body,html {
+:root {
+    --bg: #f0f2f5;
+    --surface: #ffffff;
+    --text: #1a1a2e;
+    --text-muted: #4a4a6a;
+    --cell-border: #d1d5db;
+    --cell-hover-bg: #e5e7eb;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    --new-game-bg: #059669;
+    --new-game-hover: #047857;
+    --reset-bg: #dc2626;
+    --reset-hover: #b91c1c;
+    --footer-bg: #e5e7eb;
+    --switch-bg: #e5e7eb;
+    --switch-active: #ffffff;
+    --switch-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #111827;
+        --surface: #1f2937;
+        --text: #e4e6eb;
+        --text-muted: #9ca3af;
+        --cell-border: #374151;
+        --cell-hover-bg: #2d3748;
+        --shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        --new-game-bg: #059669;
+        --new-game-hover: #10b981;
+        --reset-bg: #dc2626;
+        --reset-hover: #ef4444;
+        --footer-bg: #1f2937;
+        --switch-bg: #374151;
+        --switch-active: #1f2937;
+        --switch-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    }
+}
+
+[data-theme="dark"] {
+    --bg: #111827;
+    --surface: #1f2937;
+    --text: #e4e6eb;
+    --text-muted: #9ca3af;
+    --cell-border: #374151;
+    --cell-hover-bg: #2d3748;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    --new-game-bg: #059669;
+    --new-game-hover: #10b981;
+    --reset-bg: #dc2626;
+    --reset-hover: #ef4444;
+    --footer-bg: #1f2937;
+    --switch-bg: #374151;
+    --switch-active: #1f2937;
+    --switch-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="light"] {
+    --bg: #f0f2f5;
+    --surface: #ffffff;
+    --text: #1a1a2e;
+    --text-muted: #4a4a6a;
+    --cell-border: #d1d5db;
+    --cell-hover-bg: #e5e7eb;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    --new-game-bg: #059669;
+    --new-game-hover: #047857;
+    --reset-bg: #dc2626;
+    --reset-hover: #b91c1c;
+    --footer-bg: #e5e7eb;
+    --switch-bg: #e5e7eb;
+    --switch-active: #ffffff;
+    --switch-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+body, html {
     margin: 0;
     padding: 0;
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .container {
@@ -9,39 +86,102 @@ body,html {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    position: relative;
 }
 
 .board {
+    position: relative;
     display: grid;
     grid-template-columns: auto auto auto;
+    box-shadow: var(--shadow);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.board-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.board-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.board-overlay span {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+}
+
+.win-line {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.win-line.show {
+    opacity: 1;
+}
+
+.win-line line {
+    stroke: #ef4444;
+    stroke-width: 5;
+    stroke-linecap: round;
 }
 
 .cell {
     width: 100px;
     height: 100px;
-    border: 1px solid black;
+    border: 1px solid var(--cell-border);
+    background-color: var(--surface);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 50px;
     user-select: none;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.15s, box-shadow 0.15s;
+}
+
+.cell:hover {
+    background-color: var(--cell-hover-bg);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    z-index: 1;
 }
 
 .score {
     display: flex;
     justify-content: space-between;
     width: 300px;
+    margin-bottom: 8px;
+    color: var(--text-muted);
 }
 
 .buttonContainer {
     display: flex;
     justify-content: space-between;
     width: 300px;
+    margin-top: 8px;
 }
 
 .newGame {
-    /* nice looking button */
-    background-color: #05b623;
+    background-color: var(--new-game-bg);
     border: none;
     border-radius: 5px;
     color: white;
@@ -52,17 +192,16 @@ body,html {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+    transition: background-color 0.2s, transform 0.15s;
 }
 
-/* newGame's hover */
 .newGame:hover {
-    background-color: #036e1a;
-    color: white;
+    background-color: var(--new-game-hover);
+    transform: translateY(-1px);
 }
 
 .reset {
-    /* nice looking button */
-    background-color: #ff0000;
+    background-color: var(--reset-bg);
     border: none;
     border-radius: 5px;
     color: white;
@@ -73,16 +212,18 @@ body,html {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+    transition: background-color 0.2s, transform 0.15s;
 }
 
-/* reset's hover */
 .reset:hover {
-    background-color: #b30000;
-    color: white;
+    background-color: var(--reset-hover);
+    transform: translateY(-1px);
 }
 
 h1 {
     margin: 0px;
+    color: var(--text);
+    transition: color 0.3s;
 }
 
 .footer {
@@ -90,8 +231,158 @@ h1 {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: #f1f1f1;
-    color: black;
+    background-color: var(--footer-bg);
+    color: var(--text-muted);
     text-align: center;
+    padding: 8px 0;
+    transition: background-color 0.3s, color 0.3s;
 }
 
+.footer a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer a:hover {
+    color: var(--text);
+}
+
+/* Theme toggle switch (pill) */
+.theme-switch {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    background-color: var(--switch-bg);
+    border-radius: 99px;
+    padding: 4px;
+    gap: 2px;
+    box-shadow: var(--switch-shadow);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    z-index: 100;
+}
+
+.pill-slider {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    height: calc(100% - 8px);
+    background: var(--switch-active);
+    border-radius: 99px;
+    z-index: 1;
+    pointer-events: none;
+    transition: transform 0.25s ease, width 0.25s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.theme-option {
+    position: relative;
+    z-index: 2;
+    padding: 6px 12px;
+    border-radius: 99px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: color 0.2s;
+    user-select: none;
+    line-height: 1;
+}
+
+.theme-option.active {
+    color: var(--text);
+}
+
+.difficulty-switch {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--switch-bg);
+    border-radius: 99px;
+    padding: 4px;
+    gap: 2px;
+    box-shadow: var(--switch-shadow);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    margin-top: 8px;
+}
+
+.difficulty-option {
+    position: relative;
+    z-index: 2;
+    padding: 6px 14px;
+    border-radius: 99px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: color 0.2s;
+    user-select: none;
+    line-height: 1;
+}
+
+.difficulty-option.active {
+    color: var(--text);
+}
+
+.analysis-switch {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--switch-bg);
+    border-radius: 99px;
+    padding: 4px;
+    gap: 2px;
+    box-shadow: var(--switch-shadow);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    margin-top: 8px;
+}
+
+.analysis-option {
+    position: relative;
+    z-index: 2;
+    padding: 6px 14px;
+    border-radius: 99px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: color 0.2s;
+    user-select: none;
+    line-height: 1;
+}
+
+.analysis-option.active {
+    color: var(--text);
+}
+
+.analysis-info {
+    margin-top: 12px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    min-height: 20px;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.analysis-info.good {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #16a34a;
+}
+
+.analysis-info.bad {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #dc2626;
+}
+
+.analysis-info.neutral {
+    background-color: rgba(234, 179, 8, 0.15);
+    color: #ca8a04;
+}
+
+.cell.analysis-bad {
+    background-color: rgba(239, 68, 68, 0.2) !important;
+}
